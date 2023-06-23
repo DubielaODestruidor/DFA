@@ -19,7 +19,7 @@ E → E + S, criamos as regras,<br/>
 F → +<br/>
 D → FS, então E → ED por fim temos que a forma normal de Chomsky é a **Tabela Simples**<br/>
 
-**Exemplo 1: Tabela Simples**
+**Tabela Simples**
 
 | Origem | Transição |
 |:---: | :---:  |
