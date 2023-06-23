@@ -1,4 +1,4 @@
-import re
+# import re
 
 class DFATransdutor:
     def __init__(self):
@@ -55,8 +55,20 @@ class DFATransdutor:
             else:
                 raise ValueError ("<REJEITAR> " + cadeia_entrada + " <REJEITAR>")
 
-        cadeia_saida = re.sub(r'(\w)\1+', r'\1', cadeia_saida)
-        return cadeia_saida
+        # cadeia_saida = re.sub(r'(\w)\1+', r'\1', cadeia_saida)
+
+        vetor_saida = list(cadeia_saida)
+        for i in range(len(vetor_saida)):
+            if vetor_saida[i] == 'x':
+                p = vetor_saida[i+1]
+                while p == 'x':
+                    vetor_saida[i] = ''
+                    i += 1
+                    p = vetor_saida[i+1]
+        # print(vetor_saida)
+        string_formatada = ''.join([str(elemento) for elemento in vetor_saida])
+
+        return string_formatada
 
 
 # Exemplo de uso
