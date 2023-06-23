@@ -30,35 +30,21 @@ class DFATransdutor:
         self.estado_atual = 'q0'
 
     def processar_entrada(self, cadeia_entrada):
+        # Começa com o estado inicial, e a cadeia de saída vazia
         cadeia_saida = ''
         self.estado_atual = 'q0'
-        prev_caractere = None
 
-        for caractere in cadeia_entrada:
-            if caractere in self.alfabeto_entrada:
-                proximo_estado, saida = self.transicoes[self.estado_atual].get(caractere, (None, None))
+        for simbolo in cadeia_entrada:
+            if simbolo in self.alfabeto_entrada:
+                # Muda de estado e pega a saída
+                self.estado_atual, saida = self.transicoes[self.estado_atual].get(simbolo, (None, None))
                 if saida:
-                    # Verifica se o caractere atual é igual ao caractere anterior
-                    if caractere == prev_caractere:
-                        pass
-                        # Depurar:
-                        print("caractere: " + caractere)
-                        print("saida: " + saida)
-                        print("prev_caractere: " + prev_caractere)
-                    else:
-                        # Concatena a saída
-                        cadeia_saida += saida
-                        # Depurar:
-                        print("caractere: " + caractere)
-                        print("saida: " + saida)
-                        print("prev_caractere: " + prev_caractere)
-                    prev_caractere = caractere
-                self.estado_atual = proximo_estado
+                    # Concatena a saída
+                    cadeia_saida += saida
             else:
-                raise ValueError ("<REJEITAR> " + cadeia_entrada + " <REJEITAR>")
+                raise ValueError("<REJEITAR>" + simbolo)
 
         return cadeia_saida
-
 
 # Exemplo de uso
 transdutor = DFATransdutor()
@@ -66,3 +52,15 @@ transdutor = DFATransdutor()
 cadeia_entrada_1 = 'abc+ (+) ab ()'
 cadeia_saida_1 = transdutor.processar_entrada(cadeia_entrada_1)
 print(cadeia_entrada_1, '->', cadeia_saida_1)
+
+cadeia_entrada_2 = 'abc + (ab +  ) ab ()'
+cadeia_saida_2 = transdutor.processar_entrada(cadeia_entrada_2)
+print(cadeia_entrada_2, '->', cadeia_saida_2)
+
+cadeia_entrada_3 = 'love + (hate + something)'
+cadeia_saida_3 = transdutor.processar_entrada(cadeia_entrada_3)
+print(cadeia_entrada_3, '->', cadeia_saida_3)
+
+cadeia_entrada_4 = 'abc123'
+cadeia_saida_4 = transdutor.processar_entrada(cadeia_entrada_4)
+print(cadeia_entrada_4, '->', cadeia_saida_4)
