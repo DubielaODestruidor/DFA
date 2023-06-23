@@ -1,3 +1,5 @@
+# import re
+
 class DFATransdutor:
     def __init__(self):
         self.estados = {'q0', 'q1', 'q2'}
@@ -37,11 +39,23 @@ class DFATransdutor:
         for caractere in cadeia_entrada:
             if caractere in self.alfabeto_entrada:
                 proximo_estado, saida = self.transicoes[self.estado_atual].get(caractere, (None, None))
+                # Depurar:
+                # print("-" * 12 + "Depurar" + "-" * 12)
+                # print("caractere: " + caractere.rjust(8))
+                # print("prev_caractere: " + prev_caractere.rjust(3) if prev_caractere else "prev_caractere: None")
+                # print("saida: " + saida.rjust(12))
+
+                # Concatena a saída
                 cadeia_saida += saida
                 prev_caractere = caractere
+                # print("cadeia_saida: " + cadeia_saida.rjust(5))
+                # print("cadeia_saida[-1]: " + cadeia_saida[-1])
+                # print("-" * 12 + "///////" + "-" * 12)
                 self.estado_atual = proximo_estado
             else:
                 raise ValueError ("<REJEITAR> " + cadeia_entrada + " <REJEITAR>")
+
+        # cadeia_saida = re.sub(r'(\w)\1+', r'\1', cadeia_saida)
 
         vetor_saida = list(cadeia_saida)
         for i in range(len(vetor_saida)):
@@ -51,13 +65,13 @@ class DFATransdutor:
                     vetor_saida[i] = ''
                     i += 1
                     p = vetor_saida[i+1]
-
+        # print(vetor_saida)
         string_formatada = ''.join([str(elemento) for elemento in vetor_saida])
 
         return string_formatada
 
 
-
+# Exemplo de uso
 transdutor = DFATransdutor()
 
 cadeia_entrada_1 = 'abc+ (+) ab ()'
