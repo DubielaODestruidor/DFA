@@ -6,7 +6,7 @@
 
 Com base na tabela de transições fornecida anteriormente, aqui estão alguns exemplos de formatação para a tabela no arquivo README.md:
 **Tabela de Origem**
-S → (E) \n 
+S → (E) <br/>
 S → x\n
 E → S\n
 E → E+S\n
