@@ -46,11 +46,14 @@ class DFATransdutor:
         vetor_saida = list(cadeia_saida)
         for i in range(len(vetor_saida)):
             if vetor_saida[i] == 'x':
-                p = vetor_saida[i+1]
-                while p == 'x':
-                    vetor_saida[i] = ''
-                    i += 1
+                try:
                     p = vetor_saida[i+1]
+                    while p == 'x':
+                        vetor_saida[i] = ''
+                        i += 1
+                        p = vetor_saida[i+1]
+                except IndexError:
+                    break
 
         string_formatada = ''.join([str(elemento) for elemento in vetor_saida])
 
@@ -60,11 +63,11 @@ class DFATransdutor:
 
 transdutor = DFATransdutor()
 
-cadeia_entrada_1 = 'abc+ (+) ab ()'
+cadeia_entrada_1 = 'coringa +'
 cadeia_saida_1 = transdutor.processar_entrada(cadeia_entrada_1)
 print(cadeia_entrada_1, '->', cadeia_saida_1)
 
-cadeia_entrada_2 = 'abc + (ab +  ) ab ()'
+cadeia_entrada_2 = 'abc + (ab +  ) ab ()a'
 cadeia_saida_2 = transdutor.processar_entrada(cadeia_entrada_2)
 print(cadeia_entrada_2, '->', cadeia_saida_2)
 
